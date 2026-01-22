@@ -6,26 +6,15 @@ import {
 } from "../utils/token.js";
 
 export const register = async (req, res) => {
-    console.error("REGISTER ERROR:", error);
-
-
     const { name, email, password } = req.body;
 
-    // ✅ HARD VALIDATION (MANDATORY)
-    if (
-        !name ||
-        !email ||
-        !password ||
-        typeof email !== "string" ||
-        email.trim() === ""
-    ) {
+    if (!name || !email || !password) {
         return res.status(400).json({
-            message: "Invalid input data",
+            message: "All fields are required",
         });
     }
 
     try {
-        // ✅ SAFE QUERY (NO CRASH)
         const existingUser = await prisma.user.findFirst({
             where: {
                 email: email.trim(),
@@ -59,6 +48,7 @@ export const register = async (req, res) => {
         });
     }
 };
+
 
 
 export const login = async (req, res) => {
@@ -116,5 +106,20 @@ export const login = async (req, res) => {
         });
     }
 };
+
+export const logout = async (req, res) => {
+    try {
+
+        return res.status(200).json({
+            message: "Logged out successfully",
+            userId: req.user.id,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Logout failed",
+        });
+    }
+};
+
 
 
