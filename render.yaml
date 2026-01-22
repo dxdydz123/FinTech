@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: fintech-backend
+    env: node
+    rootDir: server
+    plan: free
+    buildCommand: npm install && npx prisma generate
+    startCommand: npm start
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: fintech-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+
+databases:
+  - name: fintech-db
+    databaseName: fintech
+    user: fintech_user
+    plan: free
