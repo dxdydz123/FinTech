@@ -14,6 +14,11 @@ const app = express();
 app.use(cors());
 app.use(express.json()); // 👈 MUST be BEFORE routes
 
+// Health check route
+app.get("/", (req, res) => {
+    res.status(200).json({ status: "ok", message: "FinTech Backend is running" });
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/protected", protectedRoutes);
 app.use("/api/expenses", expenseRoutes);
