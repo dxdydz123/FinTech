@@ -329,12 +329,13 @@
   background: rgba(0, 0, 0, 0.5);
   z-index: 30;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .sidebar-overlay.visible {
-  display: block;
   opacity: 1;
+  visibility: visible;
 }
 
 @media (max-width: 768px) {
